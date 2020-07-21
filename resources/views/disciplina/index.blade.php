@@ -58,6 +58,50 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="modalPeso">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="form-horizontal" id="formPeso">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Configuração de pesos</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="idPeso" class="form-control">
+                        <input type="hidden" id="idDisc" class="form-control">
+                        <div class='col-sm-12'>
+                            <label><b>Trabalho</b></label>
+                            <input type="text" class="form-control" name="trabalho" id="trabalho" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>Avaliação</label>
+                            <input type="text" class="form-control" name="avaliacao" id="avaliacao" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>1º Bimestre</label>
+                            <input type="text" class="form-control" name="pri_bim" id="pri_bim" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>2º Bimestre</label>
+                            <input type="text" class="form-control" name="seg_bim" id="seg_bim" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>3° Bimestre</label>
+                            <input type="text" class="form-control" name="ter_bim" id="ter_bim" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>4º Bimestre</label>
+                            <input type="text" class="form-control" name="qua_bim" id="qua_bim" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -125,6 +169,58 @@
             $('#modalDisciplina').modal('hide')
         })
 
+        $("#formPeso").submit( function(event) {
+            event.preventDefault();
+            if($("#idPeso").val() != '') {
+                updatePeso( $("#idDisc").val() );
+            }
+            else {
+                insertPeso();
+            }
+            $('#modalPeso').modal('hide')
+        })
+
+        function insertPeso() {
+            pesos = {
+                trabalho: $('#trabalho').val(),
+                avaliacao: $('#avaliacao').val(),
+                pri_bim: $('#pri_bim').val(),
+                seg_bim: $('#seg_bim').val(),
+                ter_bim: $('#ter_bim').val(),
+                qua_bim: $('#qua_bim').val(),
+                disciplina_id: $('#idDisc').val(),
+            };
+            $.post("/api/pesos", pesos, function(data) {
+                console.log('200 OK PESO');
+            });
+        }
+
+        function updatePeso(id) {
+            pesos = {
+                trabalho: $('#trabalho').val(),
+                avaliacao: $('#avaliacao').val(),
+                pri_bim: $('#pri_bim').val(),
+                seg_bim: $('#seg_bim').val(),
+                ter_bim: $('#ter_bim').val(),
+                qua_bim: $('#qua_bim').val(),
+                disciplina_id: $('#idDisc').val(),
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/pesos/"+id,
+                context: this,
+                data: pesos,
+                success: function (data) {
+                    console.log(data);
+                    console.log('edicao peso ok');
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+        }
+
         function insert() {
             disciplinas = {
                 nome: $("#nome").val(),
@@ -179,7 +275,7 @@
                 "<td>"+
                     "<a nohref style='cursor: pointer' onclick='visualizar("+disciplina.id+")'><img src='{{ asset('img/icons/info.svg') }}'></a>"+
                     "<a nohref style='cursor: pointer' onclick='editar("+disciplina.id+")'><img src='{{ asset('img/icons/edit.svg') }}'></a>"+
-                    "<a nohref style='cursor: pointer' onclick='editar("+disciplina.id+")'><img src='{{ asset('img/icons/peso.svg') }}'></a>"+
+                    "<a nohref style='cursor: pointer' onclick='peso(\""+disciplina.id+"\",\""+disciplina.nome+"\")'><img src='{{ asset('img/icons/peso.svg') }}'></a>"+
                     "<a nohref style='cursor: pointer' onclick='editar("+disciplina.id+")'><img src='{{ asset('img/icons/conceito.svg') }}'></a>"+
                 "</td>"+
             "</tr>";
@@ -218,6 +314,32 @@
                 $('#curso').val(data.curso);
                 $('#modalDisciplina').modal('show');
             });
+        }
+
+        function peso(id, nomeDisciplina) { 
+            $('#modalPeso').modal().find('.modal-title').text("Configurar peso: "+nomeDisciplina);
+            $('#idDisc').val(id)
+
+            $.ajax({
+                type: "GET",
+                url: "/api/pesos/"+id,
+                context: this,
+                success: function (data) {
+                    const json = JSON.parse(data);
+                    $('#idPeso').val(json.id);
+                    $('#trabalho').val(json.trabalho);
+                    $('#avaliacao').val(json.avaliacao);
+                    $('#pri_bim').val(json.pri_bim);
+                    $('#seg_bim').val(json.seg_bim);
+                    $('#ter_bim').val(json.ter_bim);
+                    $('#qua_bim').val(json.qua_bim);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
+
+            $('#modalPeso').modal('show');
         }
 
     </script>

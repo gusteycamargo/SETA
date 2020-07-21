@@ -15,7 +15,7 @@
                     <td>
                         <a nohref style="cursor: pointer" onclick="visualizar('{{ $item['id'] }}')"><img src="{{ asset('img/icons/info.svg') }}"></a>
                         <a nohref style="cursor: pointer" onclick="editar('{{ $item['id'] }}')"><img src="{{ asset('img/icons/edit.svg') }}"></a>
-                        <a nohref style="cursor: pointer" onclick="editar('{{ $item['id'] }}')"><img src="{{ asset('img/icons/peso.svg') }}"></a>
+                        <a nohref style="cursor: pointer" onclick="peso('{{ $item['id'] }}','{{  $item['nome'] }}')"><img src="{{ asset('img/icons/peso.svg') }}"></a>
                         <a nohref style="cursor: pointer" onclick="editar('{{ $item['id'] }}')"><img src="{{ asset('img/icons/conceito.svg') }}"></a>
                 </tr>
             @endforeach
