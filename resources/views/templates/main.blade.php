@@ -12,7 +12,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark d-flex justify-content-between">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand">
                 <b>{{$titulo}}</b>
             </a>
             <a class="navbar-brand mx-auto">
@@ -20,7 +20,7 @@
             </a>
             <ul class="navbar-nav">
                 <li class="nav-item" >
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/">
                         <b>|Home|</b>
                     </a>
                 </li>

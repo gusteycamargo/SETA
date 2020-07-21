@@ -17,5 +17,6 @@ Route::get('/', function () {
     return view('main.main');
 });
 
+Route::resource('turmas', 'Turmas');
 Route::resource('cursos', 'Cursos');
 Route::resource('componentes', 'Componentes');

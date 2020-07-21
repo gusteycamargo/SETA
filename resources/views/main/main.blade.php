@@ -25,7 +25,7 @@
             </h3>
         </div>
         <div class="col-sm-3" style="text-align: center">
-            <a href="#">
+            <a href="{{ route('turmas.index') }}">
                 <img src="{{ asset('img/turma_ico.png') }}">
             </a>
             <h3>
