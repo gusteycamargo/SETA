@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>VetClin - @yield('titulo')</title>
+        <title>VetClin - @yield('a')</title>
         <meta charset="UTF-8">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
@@ -12,7 +12,9 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark d-flex justify-content-between">
-            <a class="navbar-brand" href="#"><b>Menu</b></a>
+            <a class="navbar-brand" href="/">
+                <b>{{$titulo}}</b>
+            </a>
             <a class="navbar-brand mx-auto">
                 <b>SETA - Sistema de Entrega de Trabalhos e Atividades</b>
             </a>

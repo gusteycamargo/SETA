@@ -1,94 +1,30 @@
- <!-- https://material.io/resources/icons/?icon=delete&style=baseline -->
-{{-- 
- 
+@extends('templates.main', ['titulo' => "Curso"])
 
- @section('titulo') Clientes @endsection --}}
- @extends('templates.main', ['titulo' => "Menu"])
- @section('titulo') <b>Menu</b> @endsection
- @section('conteudo')
+@section('conteudo')
  
      <div class='row'>
-        <div class="col-sm-3" style="text-align: center">
-            <a href="{{ route('cursos.index') }}">
-                <img src="{{ asset('img/curso_ico.png') }}">
-            </a>
-            <h3>
-                <b>Curso</b>
-            </h3>
-        </div>
-        <div class="col-sm-3" style="text-align: center">
-            <a href="#">
-                <img src="{{ asset('img/componente_ico.png') }}">
-            </a>
-            <h3>
-                <b>Componente</b>
-            </h3>
-        </div>
-        <div class="col-sm-3" style="text-align: center">
-            <a href="#">
-                <img src="{{ asset('img/turma_ico.png') }}">
-            </a>
-            <h3>
-                <b>Turma</b>
-            </h3>
-        </div>
-        <div class="col-sm-3" style="text-align: center">
-            <a href="#">
-                <img src="{{ asset('img/disciplina_ico.png') }}">
-            </a>
-            <h3>
-                <b>Disciplina</b>
-            </h3>
-        </div>
+         <div class='col-sm-12'>
+            <button class="btn btn-primary btn-block" onclick="criar()">
+                <b>Cadastrar Novo Curso</b>
+            </button>
+         </div>
      </div>
      <br>
  
-     {{-- @component(
+     @component(
          'components.tablelist', [
-             "header" => ['ID', 'Nome', 'E-mail', 'Telefone', 'Eventos'],
-             "data" => $clientes
+             "header" => ['Nome', 'Eventos'],
+             "data" => $cursos
          ]
      )
      @endcomponent
 
-     <div class="modal fade" tabindex="-1" role="dialog" id="modalRemove">
+     <div class="modal" tabindex="-1" role="dialog" id="modalCurso">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <input type="hidden" id="id_remove" class="form-control">
-                <div class="modal-header">
-                    <h5 class="modal-title">Remover Cliente</h5>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" onClick="remove()">Sim</button>
-                    <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                </div>
-            </div>
-        </div>
-     </div>
-
-     <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Informações do Cliente</h5>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="cancel" class="btn btn-success" data-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-     </div>
-
-     <div class="modal" tabindex="-1" role="dialog" id="modalCliente">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form class="form-horizontal" id="formClientes">
+                <form class="form-horizontal" id="formCursos">
                     <div class="modal-header">
-                        <h5 class="modal-title">Novo Cliente</h5>
+                        <h5 class="modal-title">Novo Curso</h5>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="id" class="form-control">
@@ -97,12 +33,12 @@
                             <input type="text" class="form-control" name="nome" id="nome" required>
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
-                            <label>E-mail</label>
-                            <input type="email" class="form-control" name="email" id="email" required>
+                            <label>Abreviatura</label>
+                            <input type="text" class="form-control" name="abreviatura" id="abreviatura" required>
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
-                            <label>Telefone</label>
-                            <input type="text" class="form-control" name="telefone" id="telefone" required>
+                            <label>Tempo (em anos)</label>
+                            <input type="number" class="form-control" name="tempo" id="tempo" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -113,19 +49,18 @@
             </div>
         </div>
     </div>
-  --}}
 @endsection
 
-{{-- @section('script')
+@section('script')
 
 
     <script type="text/javascript">
         function criar() {
-            $('#modalCliente').modal().find('.modal-title').text("Novo Cliente");
+            $('#modalCurso').modal().find('.modal-title').text("Novo Curso");
             $('#nome').val('');
-            $('#email').val('');
-            $('#telefone').val('');
-            $('#modalCliente').modal('show');
+            $('#abreviatura').val('');
+            $('#tempo').val('');
+            $('#modalCurso').modal('show');
         }
 
         $.ajaxSetup({
@@ -134,7 +69,7 @@
             }
         })
 
-        $("#formClientes").submit( function(event) {
+        $("#formCursos").submit( function(event) {
             event.preventDefault();
             if($("#id").val() != '') {
                 update( $("#id").val() );
@@ -142,19 +77,19 @@
             else {
                 insert();
             }
-            $('#modalCliente').modal('hide')
+            $('#modalCurso').modal('hide')
         })
 
         function insert() {
-            clientes = {
+            cursos = {
                 nome: $("#nome").val(),
-                email: $("#email").val(),
-                telefone: $("#telefone").val(),
+                abreviatura: $("#abreviatura").val(),
+                tempo: $("#tempo").val(),
             };
-            console.log(clientes);
-            $.post("/api/clientes", clientes, function(data) {
-                novoCliente = JSON.parse(data);
-                linha = getLin(novoCliente);
+            console.log(cursos);
+            $.post("/api/cursos", cursos, function(data) {
+                novoCurso = JSON.parse(data);
+                linha = getLin(novoCurso);
                 $('#tabela>tbody').append(linha);
             });
         }
@@ -192,17 +127,13 @@
             })
         }
 
-        function getLin(cliente) {
+        function getLin(curso) {
             var linha = 
             "<tr style='text-align: center'>"+
-                "<td>"+ cliente.id +"</td>"+
-                "<td>"+ cliente.nome +"</td>"+
-                "<td>"+ cliente.email +"</td>"+
-                "<td>"+ cliente.telefone +"</td>"+
+                "<td>"+ curso.nome +"</td>"+
                 "<td>"+
-                    "<a nohref style='cursor: pointer' onclick='visualizar("+cliente.id+")'><img src='{{ asset('img/icons/info.svg') }}'></a>"+
-                    "<a nohref style='cursor: pointer' onclick='editar("+cliente.id+")'><img src='{{ asset('img/icons/edit.svg') }}'></a>"+
-                    "<a nohref style='cursor: pointer' onclick='remover("+cliente.id+", '"+cliente.nome+"'"+")'><img src='{{ asset('img/icons/delete.png') }}'></a>"+
+                    "<a nohref style='cursor: pointer' onclick='visualizar("+curso.id+")'><img src='{{ asset('img/icons/info.svg') }}'></a>"+
+                    "<a nohref style='cursor: pointer' onclick='editar("+curso.id+")'><img src='{{ asset('img/icons/edit.svg') }}'></a>"+
                 "</td>"+
             "</tr>";
 
@@ -272,6 +203,4 @@
 
     </script>
 
-@endsection --}}
- 
- 
+@endsection
