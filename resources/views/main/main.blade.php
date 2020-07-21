@@ -17,7 +17,7 @@
             </h3>
         </div>
         <div class="col-sm-3" style="text-align: center">
-            <a href="#">
+            <a href="{{ route('componentes.index') }}">
                 <img src="{{ asset('img/componente_ico.png') }}">
             </a>
             <h3>

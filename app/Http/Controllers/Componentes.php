@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Curso;
+use App\Componente;
 
-class Cursos extends Controller
+class Componentes extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,26 +14,22 @@ class Cursos extends Controller
      */
     public function index()
     {
-        $cursos = Curso::all();
+        $componentes = Componente::all();
 
-        return view('curso.index', compact(['cursos']));
+        return view('componente.index', compact(['componentes']));
     }
 
     public function store(Request $request)
     {
-        $novo = new Curso();
+        $novo = new Componente();
         $novo->nome = $request->input('nome');
-        $novo->abreviatura = $request->input('abreviatura');
-        $novo->tempo = $request->input('tempo');
+        $novo->carga_horaria = $request->input('carga_horaria');
+        $novo->curso_id = $request->input('curso');
         $novo->save();
 
         return json_encode($novo);
     }
 
-    public function loadJson() {
-        $cursos = Curso::all();
-        return json_encode($cursos);
-    }
     /**
      * Display the specified resource.
      *
@@ -42,11 +38,11 @@ class Cursos extends Controller
      */
     public function show($id)
     {
-        $curso = Curso::findOrFail($id);
-        if(isset($curso)) {
-            return json_encode($curso);
+        $componente = Componente::findOrFail($id);
+        if(isset($componente)) {
+            return json_encode($componente);
         }
-        return response('Curso nao encontrado', 404);
+        return response('Componente nao encontrado', 404);
     }
 
     /**
@@ -69,16 +65,16 @@ class Cursos extends Controller
      */
     public function update(Request $request, $id)
     {
-        $curso = Curso::findOrFail($id);
-        if(isset($curso)) {
-            $curso->nome = $request->input('nome');
-            $curso->abreviatura = $request->input('abreviatura');
-            $curso->tempo = $request->input('tempo');
-            $curso->save();
+        $componente = Componente::findOrFail($id);
+        if(isset($componente)) {
+            $componente->nome = $request->input('nome');
+            $componente->carga_horaria = $request->input('carga_horaria');
+            $componente->curso_id = $request->input('curso');
+            $componente->save();
 
-            return json_encode($curso);
+            return json_encode($componente);
         }
-        return response('Curso nao encontrado', 404);
+        return response('Componente nao encontrado', 404);
     }
 
     /**

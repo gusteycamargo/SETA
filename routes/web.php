@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::resource('cursos', 'Cursos');
+Route::resource('componentes', 'Componentes');
