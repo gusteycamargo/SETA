@@ -95,17 +95,17 @@
         }
 
         function update(id) {
-            clientes = {
+            cursos = {
                 nome: $("#nome").val(),
-                email: $("#email").val(),
-                telefone: $("#telefone").val(),
+                abreviatura: $("#abreviatura").val(),
+                tempo: $("#tempo").val(),
             };
 
             $.ajax({
                 type: "PUT",
-                url: "/api/clientes/"+id,
+                url: "/api/cursos/"+id,
                 context: this,
-                data: clientes,
+                data: cursos,
                 success: function (data) {
                     linhas = $("#tabela>tbody>tr");
                     e = linhas.filter( function(i, e) {
@@ -115,9 +115,7 @@
                     //console.log(e[0]);
 
                     if(e) {
-                        e[0].cells[1].textContent = clientes.nome;
-                        e[0].cells[2].textContent = clientes.email;
-                        e[0].cells[3].textContent = clientes.telefone;
+                        e[0].cells[1].textContent = cursos.nome;
                     }
                 },
                 error: function(error) {
@@ -154,14 +152,14 @@
         }
 
         function editar(id) { 
-            $('#modalCliente').modal().find('.modal-title').text("Alterar Cliente");
+            $('#modalCurso').modal().find('.modal-title').text("Alterar Curso");
 
-            $.getJSON('/api/clientes/'+id, function(data) {
+            $.getJSON('/api/cursos/'+id, function(data) {
                 $('#id').val(data.id);
                 $('#nome').val(data.nome);
-                $('#email').val(data.email);
-                $('#telefone').val(data.telefone);
-                $('#modalCliente').modal('show');
+                $('#abreviatura').val(data.abreviatura);
+                $('#tempo').val(data.tempo);
+                $('#modalCurso').modal('show');
             });
          }
         function remover(id, nome) { 

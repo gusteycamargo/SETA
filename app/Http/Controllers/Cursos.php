@@ -38,7 +38,11 @@ class Cursos extends Controller
      */
     public function show($id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        if(isset($curso)) {
+            return json_encode($curso);
+        }
+        return response('Curso nao encontrado', 404);
     }
 
     /**
@@ -61,7 +65,16 @@ class Cursos extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $curso = Curso::findOrFail($id);
+        if(isset($curso)) {
+            $curso->nome = $request->input('nome');
+            $curso->abreviatura = $request->input('abreviatura');
+            $curso->tempo = $request->input('tempo');
+            $curso->save();
+
+            return json_encode($curso);
+        }
+        return response('Curso nao encontrado', 404);
     }
 
     /**

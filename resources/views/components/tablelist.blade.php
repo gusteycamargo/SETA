@@ -10,6 +10,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr style="text-align: center">
+                    <td style="display: none">{{ $item['id'] }}</td>
                     <td>{{ $item['nome'] }}</td>
                     <td>
                         <a nohref style="cursor: pointer" onclick="visualizar('{{ $item['id'] }}')"><img src="{{ asset('img/icons/info.svg') }}"></a>
