@@ -49,6 +49,21 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Informações do Curso</h5>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="cancel" class="btn btn-success" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+     </div>
 @endsection
 
 @section('script')
@@ -141,11 +156,11 @@
         function visualizar(id) { 
             $('#modalInfo').modal().find('.modal-body').html("");
 
-            $.getJSON('/api/clientes/'+id, function(data) {
+            $.getJSON('/api/cursos/'+id, function(data) {
                 $('#modalInfo').modal().find('.modal-body').append("<p>ID: <b>"+ data.id +"</b></p>");
                 $('#modalInfo').modal().find('.modal-body').append("<p>Nome: <b>"+ data.nome +"</b></p>");
-                $('#modalInfo').modal().find('.modal-body').append("<p>E-mail: <b>"+ data.email +"</b></p>");
-                $('#modalInfo').modal().find('.modal-body').append("<p>Telefone: <b>"+ data.telefone +"</b></p>");
+                $('#modalInfo').modal().find('.modal-body').append("<p>Abreviatura: <b>"+ data.abreviatura +"</b></p>");
+                $('#modalInfo').modal().find('.modal-body').append("<p>Tempo (em anos): <b>"+ data.tempo +"</b></p>");
 
                 $('#modalInfo').modal('show');
             });
@@ -161,42 +176,6 @@
                 $('#tempo').val(data.tempo);
                 $('#modalCurso').modal('show');
             });
-         }
-        function remover(id, nome) { 
-            $('#modalRemove').modal().find('.modal-body').html("");
-            $('#modalRemove').modal().find('.modal-body').append("Deseja remover o cliente ''"+nome+"'?'");
-            $('#id_remove').val(id);
-            $('#modalRemove').modal('show'); 
-        }
-
-        function remove() {
-            var id = $('#id_remove').val();
-            $.ajax({
-                type: "DELETE",
-                url: "/api/clientes/"+id,
-                context: this,
-                success: function (data) {
-                    linhas = $("#tabela>tbody>tr");
-                    e = linhas.filter( function(i, e) {
-                        
-
-                        console.log(id);
-                        console.log(data);
-                        return e.cells[0].textContent == id;
-                    } );
-                    //console.log(e[0]);
-
-                    if(e) {
-                        e.remove();
-                    }
-                },
-                error: function(error) {
-                    alert('ERRO - DELETE');
-                    console.log(error);
-                }
-            });
-
-            $('#modalRemove').modal('hide'); 
         }
 
     </script>
