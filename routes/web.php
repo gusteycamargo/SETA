@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main.main');
 });
-
+Route::resource('conceitos', 'Conceitos');
 Route::resource('pesos', 'Pesos');
 Route::resource('turmas', 'Turmas');
 Route::resource('disciplinas', 'Disciplinas');

@@ -102,6 +102,38 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="modalConceito">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="form-horizontal" id="formConceito">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Configuração de conceitos</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="idConceito" class="form-control">
+                        <input type="hidden" id="idDisc" class="form-control">
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>A</label>
+                            <input type="text" class="form-control" name="a" id="a" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>B</label>
+                            <input type="text" class="form-control" name="b" id="b" required>
+                        </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>C</label>
+                            <input type="text" class="form-control" name="c" id="c" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="cancel" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -180,6 +212,17 @@
             $('#modalPeso').modal('hide')
         })
 
+        $("#formConceito").submit( function(event) {
+            event.preventDefault();
+            if($("#idConceito").val() != '') {
+                updateConceito( $("#idDisc").val() );
+            }
+            else {
+                insertConceito();
+            }
+            $('#modalConceito').modal('hide')
+        })
+
         function insertPeso() {
             pesos = {
                 trabalho: $('#trabalho').val(),
@@ -193,6 +236,41 @@
             $.post("/api/pesos", pesos, function(data) {
                 console.log('200 OK PESO');
             });
+        }
+
+        function insertConceito() {
+            conceitos = {
+                a: $('#a').val(),
+                b: $('#b').val(),
+                c: $('#c').val(),
+                disciplina_id: $('#idDisc').val(),
+            };
+            $.post("/api/conceitos", conceitos, function(data) {
+                console.log('200 OK CONCEITO');
+            });
+        }
+
+        function updateConceito(id) {
+            conceitos = {
+                a: $('#a').val(),
+                b: $('#b').val(),
+                c: $('#c').val(),
+                disciplina_id: $('#idDisc').val(),
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/conceitos/"+id,
+                context: this,
+                data: conceitos,
+                success: function (data) {
+                    console.log(data);
+                    console.log('edicao conceito ok');
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            })
         }
 
         function updatePeso(id) {
@@ -276,7 +354,7 @@
                     "<a nohref style='cursor: pointer' onclick='visualizar("+disciplina.id+")'><img src='{{ asset('img/icons/info.svg') }}'></a>"+
                     "<a nohref style='cursor: pointer' onclick='editar("+disciplina.id+")'><img src='{{ asset('img/icons/edit.svg') }}'></a>"+
                     "<a nohref style='cursor: pointer' onclick='peso(\""+disciplina.id+"\",\""+disciplina.nome+"\")'><img src='{{ asset('img/icons/peso.svg') }}'></a>"+
-                    "<a nohref style='cursor: pointer' onclick='editar("+disciplina.id+")'><img src='{{ asset('img/icons/conceito.svg') }}'></a>"+
+                    "<a nohref style='cursor: pointer' onclick='conceito(\""+disciplina.id+"\",\""+disciplina.nome+"\")''><img src='{{ asset('img/icons/conceito.svg') }}'></a>"+
                 "</td>"+
             "</tr>";
 
@@ -335,11 +413,45 @@
                     $('#qua_bim').val(json.qua_bim);
                 },
                 error: function(error) {
+                    $('#idPeso').val('');
+                    $('#trabalho').val('');
+                    $('#avaliacao').val('');
+                    $('#pri_bim').val('');
+                    $('#seg_bim').val('');
+                    $('#ter_bim').val('');
+                    $('#qua_bim').val('');
                     console.log(error);
                 }
             })
 
             $('#modalPeso').modal('show');
+        }
+
+        function conceito(id, nomeDisciplina) { 
+            $('#modalConceito').modal().find('.modal-title').text("Configurar conceito: "+nomeDisciplina);
+            $('#idDisc').val(id)
+
+            $.ajax({
+                type: "GET",
+                url: "/api/conceitos/"+id,
+                context: this,
+                success: function (data) {
+                    const json = JSON.parse(data);
+                    $('#idConceito').val(json.id);
+                    $('#a').val(json.a);
+                    $('#b').val(json.b);
+                    $('#c').val(json.c);
+                },
+                error: function(error) {
+                    $('#idConceito').val('');
+                    $('#a').val('');
+                    $('#b').val('');
+                    $('#c').val('');
+                    console.log(error);
+                }
+            })
+
+            $('#modalConceito').modal('show');
         }
 
     </script>
