@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>VetClin - @yield('a')</title>
+        <title>SETA</title>
         <meta charset="UTF-8">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>

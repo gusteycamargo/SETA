@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Componente;
+use App\Disciplina;
 
-class Componentes extends Controller
+class Disciplinas extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +14,17 @@ class Componentes extends Controller
      */
     public function index()
     {
-        $componentes = Componente::all();
+        $disciplinas = Disciplina::all();
 
-        return view('componente.index', compact(['componentes']));
+        return view('disciplina.index', compact(['disciplinas']));
     }
 
     public function store(Request $request)
     {
-        $novo = new Componente();
+        $novo = new Disciplina();
         $novo->nome = $request->input('nome');
-        $novo->carga_horaria = $request->input('carga_horaria');
+        $novo->num_de_bimestres = $request->input('num_de_bimestres');
+        $novo->componente_id = $request->input('componente_id');
         $novo->curso_id = $request->input('curso');
         $novo->save();
 
@@ -38,16 +39,11 @@ class Componentes extends Controller
      */
     public function show($id)
     {
-        $componente = Componente::findOrFail($id);
-        if(isset($componente)) {
-            return json_encode($componente);
+        $disciplina = Disciplina::findOrFail($id);
+        if(isset($disciplina)) {
+            return json_encode($disciplina);
         }
-        return response('Componente nao encontrado', 404);
-    }
-
-    public function loadJson() {
-        $componentes = Componente::all();
-        return json_encode($componentes);
+        return response('Disciplina nao encontrada', 404);
     }
 
     /**
@@ -70,16 +66,17 @@ class Componentes extends Controller
      */
     public function update(Request $request, $id)
     {
-        $componente = Componente::findOrFail($id);
-        if(isset($componente)) {
-            $componente->nome = $request->input('nome');
-            $componente->carga_horaria = $request->input('carga_horaria');
-            $componente->curso_id = $request->input('curso');
-            $componente->save();
+        $disciplina = Disciplina::findOrFail($id);
+        if(isset($disciplina)) {
+            $disciplina->nome = $request->input('nome');
+            $disciplina->num_de_bimestres = $request->input('num_de_bimestres');
+            $disciplina->componente_id = $request->input('componente_id');
+            $disciplina->curso_id = $request->input('curso');
+            $disciplina->save();
 
-            return json_encode($componente);
+            return json_encode($disciplina);
         }
-        return response('Componente nao encontrado', 404);
+        return response('Disciplina nao encontrada', 404);
     }
 
     /**

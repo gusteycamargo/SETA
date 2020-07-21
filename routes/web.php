@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::resource('turmas', 'Turmas');
+Route::resource('disciplinas', 'Disciplinas');
 Route::resource('cursos', 'Cursos');
 Route::resource('componentes', 'Componentes');

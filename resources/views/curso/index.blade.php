@@ -143,6 +143,7 @@
         function getLin(curso) {
             var linha = 
             "<tr style='text-align: center'>"+
+                "<td style='display: none'>"+ curso.id +"</td>"+
                 "<td>"+ curso.nome +"</td>"+
                 "<td>"+
                     "<a nohref style='cursor: pointer' onclick='visualizar("+curso.id+")'><img src='{{ asset('img/icons/info.svg') }}'></a>"+
