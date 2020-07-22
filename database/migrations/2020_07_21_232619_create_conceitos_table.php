@@ -18,6 +18,7 @@ class CreateConceitosTable extends Migration
             $table->string('a');
             $table->string('b');
             $table->string('c');
+            $table->string('d');
             $table->unsignedBigInteger('disciplina_id')->references('id')->on('disciplinas');
             $table->timestamps();
         });

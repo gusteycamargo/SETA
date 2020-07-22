@@ -124,6 +124,10 @@
                             <label>C</label>
                             <input type="text" class="form-control" name="c" id="c" required>
                         </div>
+                        <div class='col-sm-12' style="margin-top: 10px">
+                            <label>D</label>
+                            <input type="text" class="form-control" name="d" id="d" required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Salvar</button>
@@ -243,6 +247,7 @@
                 a: $('#a').val(),
                 b: $('#b').val(),
                 c: $('#c').val(),
+                d: $('#d').val(),
                 disciplina_id: $('#idDisc').val(),
             };
             $.post("/api/conceitos", conceitos, function(data) {
@@ -255,6 +260,7 @@
                 a: $('#a').val(),
                 b: $('#b').val(),
                 c: $('#c').val(),
+                d: $('#d').val(),
                 disciplina_id: $('#idDisc').val(),
             };
 
@@ -441,12 +447,14 @@
                     $('#a').val(json.a);
                     $('#b').val(json.b);
                     $('#c').val(json.c);
+                    $('#d').val(json.d);
                 },
                 error: function(error) {
                     $('#idConceito').val('');
                     $('#a').val('');
                     $('#b').val('');
                     $('#c').val('');
+                    $('#d').val('');
                     console.log(error);
                 }
             })

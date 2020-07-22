@@ -39,6 +39,7 @@ class Conceitos extends Controller
         $novo->a = $request->input('a');
         $novo->b = $request->input('b');
         $novo->c = $request->input('c');
+        $novo->d = $request->input('d');
         $novo->disciplina_id = $request->input('disciplina_id');
         $novo->save();
 
@@ -85,6 +86,7 @@ class Conceitos extends Controller
             $novo->a = $request->input('a');
             $novo->b = $request->input('b');
             $novo->c = $request->input('c');
+            $novo->d = $request->input('d');
             $novo->disciplina_id = $request->input('disciplina_id');
             $novo->save();
 
