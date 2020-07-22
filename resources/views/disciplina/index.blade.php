@@ -370,7 +370,7 @@
                     $.getJSON('/api/componentes/'+data.curso_id, function(dataComponente) {
 
                         $('#modalInfo').modal().find('.modal-body').append("<p>ID: <b>"+ data.id +"</b></p>");
-                        $('#modalInfo').modal().find('.modal-body').append("<p>Nome: <b>"+ data.nome +"</b></p>");
+                        $('#modalInfo').modal().find('.modal-title').text(data.nome);
                         $('#modalInfo').modal().find('.modal-body').append("<p>Bimestres: <b>"+ data.num_de_bimestres +"</b></p>");
                         $('#modalInfo').modal().find('.modal-body').append("<p>Componente curricular: <b>"+ dataComponente.nome +"</b></p>");
                         $('#modalInfo').modal().find('.modal-body').append("<p>Curso: <b>"+ dataCurso.nome +"</b></p>");

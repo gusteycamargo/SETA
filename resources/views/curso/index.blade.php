@@ -159,7 +159,7 @@
 
             $.getJSON('/api/cursos/'+id, function(data) {
                 $('#modalInfo').modal().find('.modal-body').append("<p>ID: <b>"+ data.id +"</b></p>");
-                $('#modalInfo').modal().find('.modal-body').append("<p>Nome: <b>"+ data.nome +"</b></p>");
+                $('#modalInfo').modal().find('.modal-title').text(data.nome);
                 $('#modalInfo').modal().find('.modal-body').append("<p>Abreviatura: <b>"+ data.abreviatura +"</b></p>");
                 $('#modalInfo').modal().find('.modal-body').append("<p>Tempo (em anos): <b>"+ data.tempo +"</b></p>");
 
