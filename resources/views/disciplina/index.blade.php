@@ -82,15 +82,15 @@
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
                             <label>2º Bimestre</label>
-                            <input type="text" class="form-control" name="seg_bim" id="seg_bim" required>
+                            <input type="text" class="form-control" name="seg_bim" id="seg_bim">
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
                             <label>3° Bimestre</label>
-                            <input type="text" class="form-control" name="ter_bim" id="ter_bim" required>
+                            <input type="text" class="form-control" name="ter_bim" id="ter_bim">
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
                             <label>4º Bimestre</label>
-                            <input type="text" class="form-control" name="qua_bim" id="qua_bim" required>
+                            <input type="text" class="form-control" name="qua_bim" id="qua_bim">
                         </div>
                     </div>
                     <div class="modal-footer">

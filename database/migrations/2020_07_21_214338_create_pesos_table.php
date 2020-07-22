@@ -18,9 +18,9 @@ class CreatePesosTable extends Migration
             $table->float('trabalho');
             $table->float('avaliacao');
             $table->float('pri_bim');
-            $table->float('seg_bim');
-            $table->float('ter_bim');
-            $table->float('qua_bim');
+            $table->float('seg_bim')->nullable();
+            $table->float('ter_bim')->nullable();
+            $table->float('qua_bim')->nullable();
             $table->unsignedBigInteger('disciplina_id')->references('id')->on('disciplinas');
             $table->timestamps();
         });
