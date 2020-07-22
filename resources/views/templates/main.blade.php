@@ -13,6 +13,18 @@
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark d-flex justify-content-between">
             <a class="navbar-brand">
+                @if($tag=="CURSO")
+                    <img width="36px" height="36px" src="{{ asset('img/curso_ico.png') }}">
+                @elseif($tag=="COMPONENTE")
+                    <img width="36px" height="36px" src="{{ asset('img/componente_ico.png') }}">
+                @elseif($tag=="DISCIPLINA")
+                    <img width="36px" height="36px" src="{{ asset('img/disciplina_ico.png') }}">
+                @elseif($tag=="TURMA")
+                    <img width="36px" height="36px" src="{{ asset('img/turma_ico.png') }}">
+                @elseif($tag=="HOME")
+                    <img width="36px" height="36px" src="{{ asset('img/home_ico.svg') }}">
+                @endif
+                
                 <b>{{$titulo}}</b>
             </a>
             <a class="navbar-brand mx-auto">

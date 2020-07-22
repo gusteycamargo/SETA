@@ -1,5 +1,5 @@
 
- @extends('templates.main', ['titulo' => "Menu"])
+ @extends('templates.main', ['titulo' => "Menu", 'tag' => "HOME"])
  @section('titulo') <b>Menu</b> @endsection
  @section('conteudo')
  
