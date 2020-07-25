@@ -15,12 +15,12 @@ class CreatePesosTable extends Migration
     {
         Schema::create('pesos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('trabalho');
-            $table->float('avaliacao');
-            $table->float('pri_bim');
-            $table->float('seg_bim')->nullable();
-            $table->float('ter_bim')->nullable();
-            $table->float('qua_bim')->nullable();
+            $table->string('trabalho');
+            $table->string('avaliacao');
+            $table->string('pri_bim');
+            $table->string('seg_bim')->nullable();
+            $table->string('ter_bim')->nullable();
+            $table->string('qua_bim')->nullable();
             $table->unsignedBigInteger('disciplina_id')->references('id')->on('disciplinas');
             $table->timestamps();
         });
