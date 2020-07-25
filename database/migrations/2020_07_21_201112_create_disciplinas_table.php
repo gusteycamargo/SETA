@@ -18,7 +18,7 @@ class CreateDisciplinasTable extends Migration
             $table->string('nome');
             $table->integer('num_de_bimestres');
             $table->unsignedBigInteger('componente_id')->references('id')->on('componentes');
-            $table->unsignedBigInteger('curso_id')->references('id')->on('cursos');
+            $table->unsignedBigInteger('turma_id')->references('id')->on('turmas');
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('cursos/load', 'Cursos@loadJson');
+Route::get('turmas/load', 'Turmas@loadJson');
 Route::get('componentes/load', 'Componentes@loadJson');
 Route::resource('conceitos', 'Conceitos');
 Route::resource('pesos', 'Pesos');

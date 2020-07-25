@@ -25,7 +25,7 @@ class Disciplinas extends Controller
         $novo->nome = $request->input('nome');
         $novo->num_de_bimestres = $request->input('num_de_bimestres');
         $novo->componente_id = $request->input('componente_id');
-        $novo->curso_id = $request->input('curso');
+        $novo->turma_id = $request->input('turma');
         $novo->save();
 
         return json_encode($novo);
@@ -71,7 +71,7 @@ class Disciplinas extends Controller
             $disciplina->nome = $request->input('nome');
             $disciplina->num_de_bimestres = $request->input('num_de_bimestres');
             $disciplina->componente_id = $request->input('componente_id');
-            $disciplina->curso_id = $request->input('curso');
+            $disciplina->turma_id = $request->input('turma');
             $disciplina->save();
 
             return json_encode($disciplina);

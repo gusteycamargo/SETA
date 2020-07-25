@@ -43,8 +43,8 @@
                             </select>
                         </div>
                         <div class='col-sm-12' style="margin-top: 10px">
-                            <label>Curso</label>
-                            <select name="curso" id="curso" class="form-control" required>
+                            <label>Turma</label>
+                            <select name="turma" id="turma" class="form-control" required>
                                 
                             </select>
                         </div>
@@ -159,10 +159,10 @@
 
     <script type="text/javascript">
         function loadSelects() {
-            $.getJSON('/api/cursos/load', function (data) {
+            $.getJSON('/api/turmas/load', function (data) {
                 for(i = 0; i < data.length; i++) {
                     item = '<option value="'+data[i].id+'">'+data[i].nome+'</option>';
-                    $('#curso').append(item);
+                    $('#turma').append(item);
                 }
             });
 
@@ -184,7 +184,7 @@
             $('#nome').val('');
             $('#num_de_bimestres').val('');
             $('#component_id').val('');
-            $('#curso').val('');
+            $('#turma').val('');
             $('#modalDisciplina').modal('show');
         }
 
@@ -310,7 +310,7 @@
                 nome: $("#nome").val(),
                 num_de_bimestres: $("#num_de_bimestres").val(),
                 componente_id: $("#componente_id").val(),
-                curso: $("#curso").val(),
+                turma: $("#turma").val(),
             };
             $.post("/api/disciplinas", disciplinas, function(data) {
                 novaDisciplina = JSON.parse(data);
@@ -324,7 +324,7 @@
                 nome: $("#nome").val(),
                 num_de_bimestres: $("#num_de_bimestres").val(),
                 componente_id: $("#componente_id").val(),
-                curso: $("#curso").val(),
+                turma: $("#turma").val(),
             };
 
             $.ajax({
@@ -371,15 +371,15 @@
             $('#modalInfo').modal().find('.modal-body').html("");
 
             $.getJSON('/api/disciplinas/'+id, function(data) {
-                let nome_curso = '';
-                $.getJSON('/api/cursos/'+data.curso_id, function(dataCurso) {
-                    $.getJSON('/api/componentes/'+data.curso_id, function(dataComponente) {
+                let nome_turma = '';
+                $.getJSON('/api/turmas/'+data.turma_id, function(dataTurma) {
+                    $.getJSON('/api/componentes/'+data.componente_id, function(dataComponente) {
 
                         $('#modalInfo').modal().find('.modal-body').append("<p>ID: <b>"+ data.id +"</b></p>");
                         $('#modalInfo').modal().find('.modal-title').text(data.nome);
                         $('#modalInfo').modal().find('.modal-body').append("<p>Bimestres: <b>"+ data.num_de_bimestres +"</b></p>");
                         $('#modalInfo').modal().find('.modal-body').append("<p>Componente curricular: <b>"+ dataComponente.nome +"</b></p>");
-                        $('#modalInfo').modal().find('.modal-body').append("<p>Curso: <b>"+ dataCurso.nome +"</b></p>");
+                        $('#modalInfo').modal().find('.modal-body').append("<p>Turma: <b>"+ dataTurma.nome +"</b></p>");
 
                         $('#modalInfo').modal('show');
                     });
@@ -395,7 +395,7 @@
                 $('#nome').val(data.nome);
                 $('#num_de_bimestres').val(data.num_de_bimestres);
                 $('#componente_id').val(data.componente_id);
-                $('#curso').val(data.curso);
+                $('#turma').val(data.turma);
                 $('#modalDisciplina').modal('show');
             });
         }

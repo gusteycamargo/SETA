@@ -79,6 +79,11 @@ class Turmas extends Controller
         return response('Turma nao encontrado', 404);
     }
 
+    public function loadJson() {
+        $turmas = Turma::all();
+        return json_encode($turmas);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
